@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Studycation – UK Study Visa & Career Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b2a6b;--red:#d62839;--on:#fff;--bg:#f4f7fc;--card:#fff;--text:#18213f;--muted:#5a6485;--line:#dfe5f1;--hero:linear-gradient(160deg,#eaf2ff,#fff 60%);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#8fa4ff;--red:#e8394a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}}
+:root[data-theme="dark"]{--navy:#8fa4ff;--red:#e8394a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:28px;color:var(--navy)}
+.logo span{color:var(--red)}
+.tel{color:var(--navy);font-weight:600;text-decoration:none;font-size:14px}
+.hero{background:var(--hero);border-radius:0 0 28px 28px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start;padding:20px 0 56px}
+.badge{display:inline-block;background:var(--red);color:var(--on);font-weight:600;font-size:13px;padding:5px 14px;border-radius:99px;transform:rotate(-2deg)}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:14px 0 10px;color:var(--navy);font-weight:800;letter-spacing:-.5px}
+h1 em{font-style:normal;color:var(--red)}
+.tag{font-family:Georgia,serif;font-style:italic;font-size:19px;color:var(--navy);margin:0 0 22px}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.list li{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px}
+.list b{display:block;font-size:16px}.list small{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 14px 40px rgba(27,42,107,.14);position:sticky;top:16px}
+.card h2{margin:0 0 4px;font-size:22px;color:var(--navy)}
+.card p.s{margin:0 0 18px;color:var(--muted);font-size:14px}
+label,.lbl{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
+input[type=text],input[type=tel],select{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:15px;background:var(--bg);color:var(--text)}
+input:focus,select:focus{outline:2px solid var(--navy);border-color:transparent}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt input{position:absolute;opacity:0}
+.opt span{display:block;text-align:center;padding:12px 8px;border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-weight:500;cursor:pointer;background:var(--bg)}
+.opt input:checked+span{border-color:var(--red);background:var(--red);color:var(--on)}
+.opt input:focus-visible+span{outline:2px solid var(--navy)}
+.opt{position:relative}
+button{width:100%;margin-top:20px;background:var(--red);color:var(--on);border:0;border-radius:12px;padding:15px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+button:hover{filter:brightness(1.08)}
+.err{color:var(--red);font-size:12px;margin-top:4px;min-height:0}
+.fine{font-size:12px;color:var(--muted);text-align:center;margin:12px 0 0}
+.ok{display:none;text-align:center;padding:20px 0}
+.ok h3{color:var(--navy);margin:8px 0}
+.band{padding:48px 0}
+.band h2{text-align:center;color:var(--navy);margin:0 0 24px;font-size:26px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.step i{font-style:normal;font-weight:800;color:var(--red);font-size:26px}
+.step b{display:block;margin:4px 0}.step span{color:var(--muted);font-size:14px}
+footer{background:#1b2a6b;color:#fff;padding:32px 0;margin-top:20px}
+footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;font-size:14px}
+footer a{color:#fff;text-decoration:none}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.card{position:static;order:-1}.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="wrap">
+<header><div class="logo">Study<span>cation</span></div><a class="tel" href="tel:+8801793080816">📞 +88 01793080816</a></header>
+<div class="grid">
+<div>
+<span class="badge">Limited Seats</span>
+<h1>Study Visa <br>&amp; <em>Career Roadmap</em></h1>
+<p class="tag">Your UK Dream, Our Guidance</p>
+<ul class="list">
+<li><span class="n">1</span><div><b>UK Study Plan</b><small>&amp; University Selection</small></div></li>
+<li><span class="n">2</span><div><b>Scholarship Guidance</b><small>for UK Journey</small></div></li>
+<li><span class="n">3</span><div><b>Visa Strategy</b><small>&amp; Documentation</small></div></li>
+<li><span class="n">4</span><div><b>Career Roadmap</b><small>&amp; Job Opportunities</small></div></li>
+<li><span class="n">5</span><div><b>Personalized</b><small>Action Plan</small></div></li>
+</ul>
+</div>
+
+<div class="card" id="apply">
+<form id="f" novalidate>
+<h2>Book Your Free Session</h2>
+<p class="s">Fill in the form — our counsellor will call you.</p>
+<label for="name">Full Name</label>
+<input type="text" id="name" placeholder="Your name" autocomplete="name">
+<div class="err" id="e1"></div>
+<label for="phone">Phone Number</label>
+<input type="tel" id="phone" placeholder="01XXXXXXXXX" autocomplete="tel" inputmode="tel">
+<div class="err" id="e2"></div>
+<label for="prog">Which program do you want in the UK?</label>
+<select id="prog">
+<option value="">Select a program</option>
+<option>Foundation / Pathway</option>
+<option>Bachelor's (Undergraduate)</option>
+<option>Master's (Postgraduate)</option>
+<option>PhD / Research</option>
+<option>Diploma / Short Course</option>
+<option>Not sure yet</option>
+</select>
+<div class="err" id="e3"></div>
+<div class="lbl">How would you like to join the session?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="mode" value="Online" checked><span>💻 Online</span></label>
+<label class="opt"><input type="radio" name="mode" value="In Office (Banani, Dhaka)"><span>🏢 In Office</span></label>
+</div>
+<button type="submit">Get My Free Roadmap →</button>
+<p class="fine">No fees to register. Your details are kept private.</p>
+</form>
+<div class="ok" id="ok"><div style="font-size:44px">✅</div><h3>Thank you!</h3><p>We've opened WhatsApp with your details. Just press send — we'll contact you shortly.</p></div>
+</div>
+</div>
+</div>
+</div>
+
+<section class="band"><div class="wrap">
+<h2>How it works</h2>
+<div class="steps">
+<div class="step"><i>01</i><b>Submit the form</b><span>Tell us your name, number and the program you want.</span></div>
+<div class="step"><i>02</i><b>Free counselling</b><span>Join online, or visit our Banani office.</span></div>
+<div class="step"><i>03</i><b>Get your action plan</b><span>University, scholarship, visa and career steps — made for you.</span></div>
+</div></div></section>
+
+<footer><div class="wrap">
+<div>📞 <a href="tel:+8801793080816">+88 01793080816</a><br>📞 <a href="tel:+447955090673">+44 7955090673</a></div>
+<div>📍 Block L, Silver Spring, House 04, Rd 2/1, Banani, Dhaka 1213</div>
+<div>✉️ <a href="mailto:contact@studycation.co.uk">contact@studycation.co.uk</a><br>🌐 <a href="https://www.studycation.co.uk">www.studycation.co.uk</a></div>
+</div></footer>
+
+<script>
+var WA="8801793080816";
+document.getElementById('f').addEventListener('submit',function(ev){
+ev.preventDefault();
+var n=document.getElementById('name').value.trim(),
+p=document.getElementById('phone').value.replace(/[\s-]/g,''),
+g=document.getElementById('prog').value,
+m=document.querySelector('input[name=mode]:checked').value,ok=true;
+document.getElementById('e1').textContent=n?'':(ok=false,'Please enter your name');
+document.getElementById('e2').textContent=/^(\+?88)?01\d{9}$|^\+?\d{9,14}$/.test(p)?'':(ok=false,'Enter a valid phone number');
+document.getElementById('e3').textContent=g?'':(ok=false,'Please select a program');
+if(!ok)return;
+var t="Hello Studycation! I'd like a free UK study session.\nName: "+n+"\nPhone: "+p+"\nProgram: "+g+"\nSession: "+m;
+document.getElementById('f').style.display='none';
+document.getElementById('ok').style.display='block';
+window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank");
+});
+</script>
+</body>
+</html>
