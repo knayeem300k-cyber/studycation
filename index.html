@@ -6,10 +6,10 @@
 <title>Studycation – UK Study Visa & Career Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1b2a6b;--red:#d62839;--on:#fff;--bg:#f4f7fc;--card:#fff;--text:#18213f;--muted:#5a6485;--line:#dfe5f1;--hero:linear-gradient(160deg,#eaf2ff,#fff 60%);
+:root{--navy:#1b2a6b;--red:#d62839;--green:#12915a;--amber:#c27a00;--on:#fff;--bg:#f4f7fc;--card:#fff;--text:#18213f;--muted:#5a6485;--line:#dfe5f1;--hero:linear-gradient(160deg,#eaf2ff,#fff 60%);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#8fa4ff;--red:#e8394a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}}
-:root[data-theme="dark"]{--navy:#8fa4ff;--red:#e8394a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#8fa4ff;--red:#e8394a;--green:#3ec98a;--amber:#f0b44a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}}
+:root[data-theme="dark"]{--navy:#8fa4ff;--red:#e8394a;--green:#3ec98a;--amber:#f0b44a;--on:#fff;--bg:#0f1426;--card:#171d36;--text:#eef1ff;--muted:#a3acd0;--line:#2a3157;--hero:linear-gradient(160deg,#172046,#0f1426 60%)}
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55}
@@ -123,7 +123,7 @@ footer a{color:#fff;text-decoration:none}
 <div>📞 <a href="tel:+8801793080816">+88 01793080816</a><br>📞 <a href="tel:+447955090673">+44 7955090673</a></div>
 <div>📍 Block L, Silver Spring, House 04, Rd 2/1, Banani, Dhaka 1213</div>
 <div>✉️ <a href="mailto:contact@studycation.co.uk">contact@studycation.co.uk</a><br>🌐 <a href="https://www.studycation.co.uk">www.studycation.co.uk</a></div>
-</div></footer>
+<div style="grid-column:1/-1;opacity:.6;font-size:12px"><a href="#admin">Admin</a></div></div></footer>
 
 <script>
 var WA="8801793080816";
@@ -138,10 +138,123 @@ document.getElementById('e2').textContent=/^(\+?88)?01\d{9}$|^\+?\d{9,14}$/.test
 document.getElementById('e3').textContent=g?'':(ok=false,'Please select a program');
 if(!ok)return;
 var t="Hello Studycation! I'd like a free UK study session.\nName: "+n+"\nPhone: "+p+"\nProgram: "+g+"\nSession: "+m;
-document.getElementById('f').style.display='none';
+saveLead(n,p,g,m);document.getElementById('f').style.display='none';
 document.getElementById('ok').style.display='block';
 window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank");
 });
+</script>
+<style>
+#admin{max-width:1180px;margin:0 auto;padding:18px;font-size:14px}
+#admin button{width:auto;margin-top:0;padding:10px 16px;border-radius:10px;font-size:14px}
+#admin .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+#admin .btn{background:var(--navy);color:var(--on);border:0;font-weight:600;cursor:pointer}
+#admin .btn.r{background:var(--red);color:var(--on)}
+#admin .btn.o{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+#admin .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+#admin .st{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+#admin .st b{display:block;font-size:28px;line-height:1.1}#admin .st small{color:var(--muted)}
+#admin .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px}
+#admin .panel h3{margin:0 0 10px;font-size:15px;color:var(--navy)}
+#admin .bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 24px}
+#admin .bar{display:grid;grid-template-columns:150px 1fr 28px;gap:8px;align-items:center;font-size:13px}
+#admin .bar i{display:block;height:8px;border-radius:9px;background:var(--navy)}
+#admin .tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#admin input,#admin select{font:inherit;font-size:13px;padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+#admin .tools input{flex:1;min-width:180px}
+#admin .tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+#admin table{border-collapse:collapse;width:100%;min-width:900px}
+#admin th,#admin td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+#admin th{font-size:12px;color:var(--muted);text-transform:uppercase}
+#admin td a{color:var(--navy);text-decoration:none;font-weight:500}
+#admin td select,#admin td input{width:100%;min-width:110px}
+#admin .add{display:none;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;align-items:end}
+#admin .add.show{display:grid}#admin .add input,#admin .add select{width:100%}
+#admin .msg{text-align:center;padding:40px 20px;color:var(--muted)}
+#admin .x{background:none;color:var(--red);border:0;cursor:pointer;font-size:16px;padding:4px 8px}
+#login{max-width:380px;margin:80px auto;padding:0 20px;text-align:center}
+#login input{width:100%;margin:14px 0 6px;padding:13px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:var(--card);color:var(--text)}
+#login button{margin-top:10px}
+</style>
+
+<div id="login" style="display:none">
+<div class="logo">Study<span>cation</span></div>
+<h2 style="color:var(--navy);margin:10px 0 0">Admin Login</h2>
+<input type="password" id="pw" placeholder="Enter password">
+<div class="err" id="pe"></div>
+<button id="lg">Login</button>
+<p class="fine"><a href="#" style="color:var(--muted)">← Back to website</a></p>
+</div>
+
+<div id="admin" style="display:none">
+<div class="top">
+<div class="logo">Study<span>cation</span> <small style="font-family:Poppins,sans-serif;font-size:13px;font-weight:500;color:var(--muted)">Admin Dashboard</small></div>
+<div><a href="#" class="btn o" style="text-decoration:none;display:inline-block;padding:10px 16px;border-radius:10px;font-weight:600">View website</a> <button class="btn r" id="lo">Logout</button></div>
+</div>
+<div class="stats" id="stats"></div>
+<div class="panel"><h3>Applications by program</h3><div class="bars" id="bars"></div></div>
+<div class="tools">
+<input id="q" placeholder="Search name or phone…">
+<select id="fs"><option value="">All contact status</option><option>New</option><option>Contacted</option></select>
+<select id="fo"><option value="">All outcomes</option><option>Pending</option><option>Positive</option><option>Call back</option><option>Negative</option></select>
+<button class="btn o" id="exp">⬇ Export CSV</button>
+<button class="btn" id="tog">＋ Add lead</button>
+</div>
+<div class="panel add" id="add">
+<input id="an" placeholder="Name"><input id="ap" placeholder="Phone">
+<select id="ag"><option>Foundation / Pathway</option><option>Bachelor's (Undergraduate)</option><option>Master's (Postgraduate)</option><option>PhD / Research</option><option>Diploma / Short Course</option><option>Not sure yet</option></select>
+<select id="am"><option>Online</option><option>In Office (Banani, Dhaka)</option></select>
+<button class="btn r" id="save">Save lead</button>
+</div>
+<div class="tw"><table><thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Program</th><th>Session</th><th>Contacted?</th><th>Outcome</th><th>Note</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+</div>
+
+<script>
+var ADMIN_PASS="admin123",KEY="sc_leads",OUT=["Pending","Positive","Call back","Negative"],authed=false;
+try{authed=sessionStorage.getItem("sc_auth")==="1"}catch(e){}
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+function store(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+function saveLead(n,p,g,m){var a=load();a.unshift({id:Date.now()+"",name:n,phone:p,program:g,mode:m,status:"New",outcome:"Pending",note:"",createdAt:new Date().toISOString()});store(a)}
+function filtered(){var q=$("q").value.toLowerCase(),s=$("fs").value,o=$("fo").value;
+return load().filter(function(l){return(!q||(l.name||"").toLowerCase().indexOf(q)>-1||(l.phone||"").indexOf(q)>-1)&&(!s||l.status===s)&&(!o||l.outcome===o)})}
+function render(){
+var L=load(),n=L.length,c=L.filter(function(l){return l.status==="Contacted"}).length,
+cnt=function(o){return L.filter(function(l){return l.outcome===o}).length},
+on=L.filter(function(l){return String(l.mode).indexOf("Online")===0}).length;
+var S=[["Total applied",n,""],["Contacted",c,"var(--navy)"],["Not contacted",n-c,"var(--red)"],["Positive",cnt("Positive"),"var(--green)"],["Call back",cnt("Call back"),"var(--amber)"],["Negative",cnt("Negative"),"var(--red)"],["Online",on,""],["In Office",n-on,""]];
+$("stats").innerHTML=S.map(function(s){return'<div class="st"><b style="color:'+(s[2]||"var(--text)")+'">'+s[1]+'</b><small>'+s[0]+'</small></div>'}).join("");
+var by={};L.forEach(function(l){by[l.program]=(by[l.program]||0)+1});
+var mx=Math.max.apply(null,Object.values(by).concat([1]));
+$("bars").innerHTML=Object.keys(by).length?Object.keys(by).map(function(k){return'<div class="bar"><span>'+esc(k)+'</span><span><i style="width:'+by[k]/mx*100+'%"></i></span><b>'+by[k]+'</b></div>'}).join(""):'<span style="color:var(--muted)">No data yet</span>';
+var f=filtered();
+$("rows").innerHTML=f.length?f.map(function(l){
+var ph=String(l.phone||"").replace(/[^\d+]/g,""),wa=ph.replace(/^\+/,"").replace(/^0/,"880");
+return'<tr data-id="'+esc(l.id)+'"><td>'+esc((l.createdAt||"").slice(0,10))+'</td><td><b>'+esc(l.name)+'</b></td><td><a href="tel:'+esc(ph)+'">'+esc(l.phone)+'</a><br><a href="https://wa.me/'+esc(wa)+'" target="_blank" rel="noopener" style="font-size:12px">WhatsApp</a></td><td>'+esc(l.program)+'</td><td>'+esc(l.mode)+'</td>'+
+'<td><select data-f="status"><option'+(l.status!=="Contacted"?" selected":"")+'>New</option><option'+(l.status==="Contacted"?" selected":"")+'>Contacted</option></select></td>'+
+'<td><select data-f="outcome">'+OUT.map(function(o){return'<option'+(l.outcome===o?" selected":"")+'>'+o+'</option>'}).join("")+'</select></td>'+
+'<td><input data-f="note" value="'+esc(l.note)+'" placeholder="Add note"></td><td><button class="x" data-del title="Delete">✕</button></td></tr>'}).join(""):'<tr><td colspan="9" class="msg">No leads yet.</td></tr>';
+}
+function route(){
+var adm=location.hash==="#admin";
+[".hero",".band","footer"].forEach(function(s){var e=document.querySelector(s);if(e)e.style.display=adm?"none":""});
+$("login").style.display=adm&&!authed?"block":"none";
+$("admin").style.display=adm&&authed?"block":"none";
+if(adm&&authed)render();
+window.scrollTo(0,0);
+}
+$("lg").onclick=function(){if($("pw").value===ADMIN_PASS){authed=true;try{sessionStorage.setItem("sc_auth","1")}catch(e){}$("pw").value="";$("pe").textContent="";route()}else $("pe").textContent="Wrong password"};
+$("pw").addEventListener("keydown",function(e){if(e.key==="Enter")$("lg").onclick()});
+$("lo").onclick=function(){authed=false;try{sessionStorage.removeItem("sc_auth")}catch(e){}location.hash="";route()};
+["q","fs","fo"].forEach(function(i){$(i).addEventListener("input",render)});
+$("tog").onclick=function(){$("add").classList.toggle("show")};
+$("save").onclick=function(){var n=$("an").value.trim(),p=$("ap").value.trim();if(!n||!p){alert("Name and phone are required");return}saveLead(n,p,$("ag").value,$("am").value);$("an").value="";$("ap").value="";render()};
+$("rows").addEventListener("change",function(e){var t=e.target,tr=t.closest("tr"),f=t.dataset.f;if(!f||!tr)return;var a=load();a.forEach(function(l){if(l.id===tr.dataset.id)l[f]=t.value});store(a);if(f!=="note")render()});
+$("rows").addEventListener("click",function(e){if(e.target.hasAttribute("data-del")&&confirm("Delete this lead?")){var id=e.target.closest("tr").dataset.id;store(load().filter(function(l){return l.id!==id}));render()}});
+$("exp").onclick=function(){var H=["Date","Name","Phone","Program","Session","Status","Outcome","Note"],q=function(v){return'"'+String(v==null?"":v).replace(/"/g,'""')+'"'};
+var csv=[H.map(q).join(",")].concat(filtered().map(function(l){return[(l.createdAt||"").slice(0,10),l.name,l.phone,l.program,l.mode,l.status,l.outcome,l.note].map(q).join(",")})).join("\n");
+var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download="studycation-leads.csv";a.click()};
+window.addEventListener("hashchange",route);route();
 </script>
 </body>
 </html>
