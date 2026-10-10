@@ -105,7 +105,7 @@ footer a{color:#fff;text-decoration:none}
 <button type="submit">Get My Free Roadmap →</button>
 <p class="fine">No fees to register. Your details are kept private.</p>
 </form>
-<div class="ok" id="ok"><div style="font-size:44px">✅</div><h3>Thank you!</h3><p>We've opened WhatsApp with your details. Just press send — we'll contact you shortly.</p></div>
+<div class="ok" id="ok"><div style="font-size:44px">✅</div><h3>Thank you!</h3><p>Your details have been received. Our counsellor will contact you shortly.</p></div>
 </div>
 </div>
 </div>
@@ -126,7 +126,6 @@ footer a{color:#fff;text-decoration:none}
 <div style="grid-column:1/-1;opacity:.6;font-size:12px"><a href="#admin">Admin</a></div></div></footer>
 
 <script>
-var WA="8801793080816";
 document.getElementById('f').addEventListener('submit',function(ev){
 ev.preventDefault();
 var n=document.getElementById('name').value.trim(),
@@ -137,10 +136,8 @@ document.getElementById('e1').textContent=n?'':(ok=false,'Please enter your name
 document.getElementById('e2').textContent=/^(\+?88)?01\d{9}$|^\+?\d{9,14}$/.test(p)?'':(ok=false,'Enter a valid phone number');
 document.getElementById('e3').textContent=g?'':(ok=false,'Please select a program');
 if(!ok)return;
-var t="Hello Studycation! I'd like a free UK study session.\nName: "+n+"\nPhone: "+p+"\nProgram: "+g+"\nSession: "+m;
-saveLead(n,p,g,m);document.getElementById('f').style.display='none';
-document.getElementById('ok').style.display='block';
-window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank");
+var btn=document.querySelector('#f button');btn.disabled=true;btn.textContent='Submitting…';
+sbInsert({name:n,phone:p,program:g,mode:m}).then(function(){document.getElementById('f').style.display='none';document.getElementById('ok').style.display='block'}).catch(function(){btn.disabled=false;btn.textContent='Get My Free Roadmap →';document.getElementById('e3').textContent='Could not submit. Please check your internet and try again.'});
 });
 </script>
 <style>
@@ -179,7 +176,7 @@ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank");
 <div id="login" style="display:none">
 <div class="logo">Study<span>cation</span></div>
 <h2 style="color:var(--navy);margin:10px 0 0">Admin Login</h2>
-<input type="password" id="pw" placeholder="Enter password">
+<input type="email" id="em" placeholder="Admin email" autocomplete="username"><input type="password" id="pw" placeholder="Password" autocomplete="current-password">
 <div class="err" id="pe"></div>
 <button id="lg">Login</button>
 <p class="fine"><a href="#" style="color:var(--muted)">← Back to website</a></p>
@@ -209,17 +206,24 @@ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank");
 </div>
 
 <script>
-var ADMIN_PASS="admin123",KEY="sc_leads",OUT=["Pending","Positive","Call back","Negative"],authed=false;
-try{authed=sessionStorage.getItem("sc_auth")==="1"}catch(e){}
+var SB_URL="https://quocwepnhqnawkaexgcb.supabase.co",SB_KEY="PASTE_ANON_KEY_HERE";
+var OUT=["Pending","Positive","Call back","Negative"],token=null,LEADS=[];
+try{token=sessionStorage.getItem("sc_tok")}catch(e){}
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
-function store(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
-function saveLead(n,p,g,m){var a=load();a.unshift({id:Date.now()+"",name:n,phone:p,program:g,mode:m,status:"New",outcome:"Pending",note:"",createdAt:new Date().toISOString()});store(a)}
+function cfg(){return SB_URL.indexOf("http")===0&&SB_KEY.length>20}
+function hdr(auth){return{apikey:SB_KEY,Authorization:"Bearer "+(auth&&token?token:SB_KEY),"Content-Type":"application/json"}}
+function sbInsert(o,auth){if(!cfg())return Promise.reject();var h=hdr(auth);h.Prefer="return=minimal";return fetch(SB_URL+"/rest/v1/leads",{method:"POST",headers:h,body:JSON.stringify(o)}).then(function(r){if(!r.ok)throw 0})}
+function logout(msg){token=null;try{sessionStorage.removeItem("sc_tok")}catch(e){}if(msg)alert(msg);location.hash="";route()}
+function fetchLeads(){
+if(!cfg()){$("rows").innerHTML='<tr><td colspan="9" class="msg">Database not connected yet. Add your Supabase URL and key in the file.</td></tr>';return Promise.resolve()}
+return fetch(SB_URL+"/rest/v1/leads?select=*&order=created_at.desc",{headers:hdr(true)}).then(function(r){
+if(r.status===401){logout("Session expired. Please login again.");throw 0}
+return r.json()}).then(function(d){LEADS=Array.isArray(d)?d:[];render()}).catch(function(){})}
 function filtered(){var q=$("q").value.toLowerCase(),s=$("fs").value,o=$("fo").value;
-return load().filter(function(l){return(!q||(l.name||"").toLowerCase().indexOf(q)>-1||(l.phone||"").indexOf(q)>-1)&&(!s||l.status===s)&&(!o||l.outcome===o)})}
+return LEADS.filter(function(l){return(!q||(l.name||"").toLowerCase().indexOf(q)>-1||(l.phone||"").indexOf(q)>-1)&&(!s||l.status===s)&&(!o||l.outcome===o)})}
 function render(){
-var L=load(),n=L.length,c=L.filter(function(l){return l.status==="Contacted"}).length,
+var L=LEADS,n=L.length,c=L.filter(function(l){return l.status==="Contacted"}).length,
 cnt=function(o){return L.filter(function(l){return l.outcome===o}).length},
 on=L.filter(function(l){return String(l.mode).indexOf("Online")===0}).length;
 var S=[["Total applied",n,""],["Contacted",c,"var(--navy)"],["Not contacted",n-c,"var(--red)"],["Positive",cnt("Positive"),"var(--green)"],["Call back",cnt("Call back"),"var(--amber)"],["Negative",cnt("Negative"),"var(--red)"],["Online",on,""],["In Office",n-on,""]];
@@ -230,7 +234,7 @@ $("bars").innerHTML=Object.keys(by).length?Object.keys(by).map(function(k){retur
 var f=filtered();
 $("rows").innerHTML=f.length?f.map(function(l){
 var ph=String(l.phone||"").replace(/[^\d+]/g,""),wa=ph.replace(/^\+/,"").replace(/^0/,"880");
-return'<tr data-id="'+esc(l.id)+'"><td>'+esc((l.createdAt||"").slice(0,10))+'</td><td><b>'+esc(l.name)+'</b></td><td><a href="tel:'+esc(ph)+'">'+esc(l.phone)+'</a><br><a href="https://wa.me/'+esc(wa)+'" target="_blank" rel="noopener" style="font-size:12px">WhatsApp</a></td><td>'+esc(l.program)+'</td><td>'+esc(l.mode)+'</td>'+
+return'<tr data-id="'+esc(l.id)+'"><td>'+esc((l.created_at||"").slice(0,10))+'</td><td><b>'+esc(l.name)+'</b></td><td><a href="tel:'+esc(ph)+'">'+esc(l.phone)+'</a><br><a href="https://wa.me/'+esc(wa)+'" target="_blank" rel="noopener" style="font-size:12px">WhatsApp</a></td><td>'+esc(l.program)+'</td><td>'+esc(l.mode)+'</td>'+
 '<td><select data-f="status"><option'+(l.status!=="Contacted"?" selected":"")+'>New</option><option'+(l.status==="Contacted"?" selected":"")+'>Contacted</option></select></td>'+
 '<td><select data-f="outcome">'+OUT.map(function(o){return'<option'+(l.outcome===o?" selected":"")+'>'+o+'</option>'}).join("")+'</select></td>'+
 '<td><input data-f="note" value="'+esc(l.note)+'" placeholder="Add note"></td><td><button class="x" data-del title="Delete">✕</button></td></tr>'}).join(""):'<tr><td colspan="9" class="msg">No leads yet.</td></tr>';
@@ -238,21 +242,31 @@ return'<tr data-id="'+esc(l.id)+'"><td>'+esc((l.createdAt||"").slice(0,10))+'</t
 function route(){
 var adm=location.hash==="#admin";
 [".hero",".band","footer"].forEach(function(s){var e=document.querySelector(s);if(e)e.style.display=adm?"none":""});
-$("login").style.display=adm&&!authed?"block":"none";
-$("admin").style.display=adm&&authed?"block":"none";
-if(adm&&authed)render();
+$("login").style.display=adm&&!token?"block":"none";
+$("admin").style.display=adm&&token?"block":"none";
+if(adm&&token)fetchLeads();
 window.scrollTo(0,0);
 }
-$("lg").onclick=function(){if($("pw").value===ADMIN_PASS){authed=true;try{sessionStorage.setItem("sc_auth","1")}catch(e){}$("pw").value="";$("pe").textContent="";route()}else $("pe").textContent="Wrong password"};
+$("lg").onclick=function(){
+if(!cfg()){$("pe").textContent="Database not connected yet";return}
+$("pe").textContent="";
+fetch(SB_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({email:$("em").value.trim(),password:$("pw").value})})
+.then(function(r){return r.json()}).then(function(d){
+if(d.access_token){token=d.access_token;try{sessionStorage.setItem("sc_tok",token)}catch(e){}$("pw").value="";route()}else $("pe").textContent="Wrong email or password"})
+.catch(function(){$("pe").textContent="Network error"})};
 $("pw").addEventListener("keydown",function(e){if(e.key==="Enter")$("lg").onclick()});
-$("lo").onclick=function(){authed=false;try{sessionStorage.removeItem("sc_auth")}catch(e){}location.hash="";route()};
+$("lo").onclick=function(){logout()};
 ["q","fs","fo"].forEach(function(i){$(i).addEventListener("input",render)});
 $("tog").onclick=function(){$("add").classList.toggle("show")};
-$("save").onclick=function(){var n=$("an").value.trim(),p=$("ap").value.trim();if(!n||!p){alert("Name and phone are required");return}saveLead(n,p,$("ag").value,$("am").value);$("an").value="";$("ap").value="";render()};
-$("rows").addEventListener("change",function(e){var t=e.target,tr=t.closest("tr"),f=t.dataset.f;if(!f||!tr)return;var a=load();a.forEach(function(l){if(l.id===tr.dataset.id)l[f]=t.value});store(a);if(f!=="note")render()});
-$("rows").addEventListener("click",function(e){if(e.target.hasAttribute("data-del")&&confirm("Delete this lead?")){var id=e.target.closest("tr").dataset.id;store(load().filter(function(l){return l.id!==id}));render()}});
+$("save").onclick=function(){var n=$("an").value.trim(),p=$("ap").value.trim();if(!n||!p){alert("Name and phone are required");return}
+sbInsert({name:n,phone:p,program:$("ag").value,mode:$("am").value},true).then(function(){$("an").value="";$("ap").value="";fetchLeads()}).catch(function(){alert("Could not save")})};
+$("rows").addEventListener("change",function(e){var t=e.target,tr=t.closest("tr"),f=t.dataset.f;if(!f||!tr)return;var id=tr.dataset.id,b={};b[f]=t.value;
+var h=hdr(true);h.Prefer="return=minimal";
+fetch(SB_URL+"/rest/v1/leads?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:h,body:JSON.stringify(b)}).then(function(r){if(!r.ok)throw 0;LEADS.forEach(function(l){if(l.id===id)l[f]=t.value});if(f!=="note")render()}).catch(function(){alert("Could not update")})});
+$("rows").addEventListener("click",function(e){if(e.target.hasAttribute("data-del")&&confirm("Delete this lead?")){var id=e.target.closest("tr").dataset.id;
+fetch(SB_URL+"/rest/v1/leads?id=eq."+encodeURIComponent(id),{method:"DELETE",headers:hdr(true)}).then(function(r){if(!r.ok)throw 0;LEADS=LEADS.filter(function(l){return l.id!==id});render()}).catch(function(){alert("Could not delete")})}});
 $("exp").onclick=function(){var H=["Date","Name","Phone","Program","Session","Status","Outcome","Note"],q=function(v){return'"'+String(v==null?"":v).replace(/"/g,'""')+'"'};
-var csv=[H.map(q).join(",")].concat(filtered().map(function(l){return[(l.createdAt||"").slice(0,10),l.name,l.phone,l.program,l.mode,l.status,l.outcome,l.note].map(q).join(",")})).join("\n");
+var csv=[H.map(q).join(",")].concat(filtered().map(function(l){return[(l.created_at||"").slice(0,10),l.name,l.phone,l.program,l.mode,l.status,l.outcome,l.note].map(q).join(",")})).join("\n");
 var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download="studycation-leads.csv";a.click()};
 window.addEventListener("hashchange",route);route();
 </script>
